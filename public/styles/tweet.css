@@ -1,0 +1,79 @@
+#tweet-container {
+  margin: 0 2em;
+  border-style: ridge;
+  border-radius: 5px;
+}
+
+#tweet-container header {
+  background-color: #eee;
+  padding: 5px;
+  height: 50px;
+}
+
+#tweet-container .user-avatar {border-radius: 3px;}
+
+#tweet-container .user-name {position: absolute;font-size: 1.6em;padding-left: 5px;line-height: 40px;}
+
+#tweet-container .user-handle {
+  float: right;
+  font-size: 1.2em;
+  line-height: 40px;
+  padding-right: 5px;
+}
+
+#tweet-container .content {
+  height: 100px;
+  background-color: white;
+  padding: 5px;
+  border-radius: 3px;
+  word-break: break-all;
+  border-bottom: solid;
+  border-bottom-color: #eee;
+}
+
+#tweet-container .text {}
+
+#tweet-container footer {background-color: white;height: 34px;}
+
+#tweet-container .created_at {
+  float: left;
+  line-height: 34px;
+  padding-left: 3px;
+}
+
+#tweet-container:hover .flag {
+  opacity: 0.6;
+}
+
+#tweet-container:hover .retweet {
+  opacity: 0.6;
+}
+
+#tweet-container:hover .like {
+  opacity: 0.6;
+}
+
+#tweet-container .like {
+  height: 30px;
+  float: right;
+  padding: 2px;
+  margin: 2px;
+  opacity: 0;
+}
+
+#tweet-container .flag {
+  height: 30px;
+  float: right;
+  padding: 2px;
+  margin: 2px;
+  opacity: 0;
+}
+
+#tweet-container .retweet {
+  height: 30px;
+  float: right;
+  padding: 4px;
+  margin: 2px;
+  opacity: 0;
+}
+
