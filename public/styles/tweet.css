@@ -1,16 +1,25 @@
 #tweet-container {
   margin: 0 2em;
-  border-style: ridge;
-  border-radius: 5px;
+  /* border-style: ridge; */
+  /* border-radius: 5px; */
+}
+
+#tweet-container article {
+  margin-bottom: 20px;
+  border-style: solid;
+  border-width: thin;
+  border-radius: 4px;
+  border-color: cyan;
 }
 
 #tweet-container header {
   background-color: #eee;
   padding: 5px;
   height: 50px;
+  border-radius: inherit;
 }
 
-#tweet-container .user-avatar {border-radius: 3px;}
+#tweet-container .user-avatar {border-radius: 3px;height: 40px;}
 
 #tweet-container .user-name {position: absolute;font-size: 1.6em;padding-left: 5px;line-height: 40px;}
 
@@ -19,6 +28,7 @@
   font-size: 1.2em;
   line-height: 40px;
   padding-right: 5px;
+  opacity: 0.7;
 }
 
 #tweet-container .content {
@@ -26,14 +36,15 @@
   background-color: white;
   padding: 5px;
   border-radius: 3px;
-  word-break: break-all;
+  word-break: break-word;
   border-bottom: solid;
   border-bottom-color: #eee;
 }
 
-#tweet-container .text {}
+#tweet-container .text {
+}
 
-#tweet-container footer {background-color: white;height: 34px;}
+#tweet-container footer {background-color: white;height: 34px;border-radius: inherit;}
 
 #tweet-container .created_at {
   float: left;
@@ -41,15 +52,15 @@
   padding-left: 3px;
 }
 
-#tweet-container:hover .flag {
+#tweet-container article:hover .flag {
   opacity: 0.6;
 }
 
-#tweet-container:hover .retweet {
+#tweet-container article:hover .retweet {
   opacity: 0.6;
 }
 
-#tweet-container:hover .like {
+#tweet-container article:hover .like {
   opacity: 0.6;
 }
 
