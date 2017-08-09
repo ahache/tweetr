@@ -1,8 +1,5 @@
 $(document).ready(function() {
 
-  const moment = require('moment');
-  moment().format();
-
   function constructHeader(user) {
     let $header = $('<header>');
 
@@ -53,19 +50,29 @@ $(document).ready(function() {
     }
   }
 
-  // refactor success/fail
   function loadTweets() {
     $.ajax('/tweets')
-      .done(function(data) {
+      .done((data) => {
         renderTweets(data);
       });
   };
 
-  // refactor success/fail
+  // Compose button handler
+  // Should make .new-tweet section fade out and in on click ... toggle
+  // After fade in focus should be on textarea
+  $('.compose-button').on('click', function() {
+    const newTweet = $('.new-tweet');
+    newTweet.slideToggle('slow');
+    newTweet.find('textarea').focus();
+  });
+
+  // Tweet submit handler
   $('form').on('submit', function() {
     event.preventDefault();
+
     // input validation
     let length = $(this).find('textarea').val().length;
+
     // Refactor to display pop up prompt by form
     if (length === 0) {
       alert("Enter something!!");
@@ -75,19 +82,20 @@ $(document).ready(function() {
       alert("Too long! Cut it down..");
       return;
     }
+
     let input = $(this).serialize();
-    $.ajax({
-      method: 'POST',
-      url: '/tweets',
-      data: input
-    })
-      .done(function() {
-        $.ajax('/tweets')
-          .done(function(data) {
+
+    // Send new tweet to server, get back all tweet data and prepend the new item
+    $.post('/tweets', input)
+      .done(() => {
+        $.get('/tweets')
+          .done((data) => {
             renderTweets(data.slice(-1));
           });
       });
-
   });
+
+  // Display all existing tweets on page load
   loadTweets();
+
 });
