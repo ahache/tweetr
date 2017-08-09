@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+  const moment = require('moment');
+  moment().format();
+
   function constructHeader(user) {
     let $header = $('<header>');
 
@@ -50,6 +53,7 @@ $(document).ready(function() {
     }
   }
 
+  // refactor success/fail
   function loadTweets() {
     $.ajax('/tweets')
       .done(function(data) {
@@ -60,6 +64,17 @@ $(document).ready(function() {
   // refactor success/fail
   $('form').on('submit', function() {
     event.preventDefault();
+    // input validation
+    let length = $(this).find('textarea').val().length;
+    // Refactor to display pop up prompt by form
+    if (length === 0) {
+      alert("Enter something!!");
+      return;
+    }
+    if (length > 140) {
+      alert("Too long! Cut it down..");
+      return;
+    }
     let input = $(this).serialize();
     $.ajax({
       method: 'POST',
