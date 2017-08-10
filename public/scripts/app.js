@@ -1,62 +1,42 @@
 $(document).ready(function() {
 
-  function constructHeader(user) {
-    let $header = $('<header>');
-
-    let $avatarImg = $('<img>').addClass('user-avatar').attr('src', user.avatars.small);
-    let $nameSpan = $('<span>').addClass('user-name').text(user.name);
-    let $handleSpan = $('<span>').addClass('user-handle').text(user.handle);
-
-    $header.append($avatarImg).append($nameSpan).append($handleSpan);
-
-    return $header;
-  }
-
-  function constructContent(content) {
-    let $content = $('<div>').addClass('content');
-    let $text = $('<span>').addClass('text').text(content.text);
-
-    $content.append($text);
-
-    return $content;
-  }
-
-  function constructFooter(date) {
-    let $footer = $('<footer>');
-
-    // Using moment.js to generate time difference
-    let $timeSpan = $('<span>').addClass('created_at').text(moment(date).fromNow());
-    let $flag = $('<img>').addClass('flag').attr('src', '../images/flag.png');
-    let $retweet = $('<img>').addClass('retweet').attr('src', '../images/retweet.png');
-    let $like = $('<img>').addClass('like').attr('src', '../images/like.png');
-
-    $footer.append($timeSpan).append($flag).append($retweet).append($like);
-
-    return $footer;
-  }
-
+  // HTML generator using template string
   function createTweetElement(tweet) {
-    let $tweet = $('<article>');
-
-    $tweet.append(constructHeader(tweet.user));
-    $tweet.append(constructContent(tweet.content));
-    $tweet.append(constructFooter(tweet['created_at']));
-
+    const $tweet = `
+      <article>
+        <header>
+          <img class="user-avatar" src="${tweet.user.avatars.small}">
+          <span class="user-name">${tweet.user.name}</span>
+          <span class="user-handle">${tweet.user.handle}</span>
+        </header>
+        <div class="content">
+          <span class="text">${tweet.content.text}</span>
+        </div>
+        <footer>
+          <span class="created_at">${moment(tweet['created_at']).fromNow()}</span>
+          <img class="flag" src="../images/flag.png" alt="Report">
+          <img class="retweet" src="../images/retweet.png" alt="Retweet">
+          <img class="like" src="../images/like.png" alt="Like">
+        </footer>
+      </article>
+    `;
     return $tweet;
   }
 
+  // Add new tweet/s to top of container
   function renderTweets(tweets) {
     for (const tweet of tweets) {
       $('#tweet-container').prepend(createTweetElement(tweet));
     }
   }
 
+  // Initial load when user first accesses app
   function loadTweets() {
     $.ajax('/tweets')
       .done((data) => {
         renderTweets(data);
       });
-  };
+  }
 
   // Compose button handler, slides tweet box up and down
   $('.compose-button').on('click', function() {
@@ -69,7 +49,7 @@ $(document).ready(function() {
   $('form').on('submit', function() {
     event.preventDefault();
 
-    // input validation
+    // input validation, using notify.js for bad input
     let length = $(this).find('textarea').val().length;
     if (length === 0) {
       $('input').notify("Your tweet is empty!");
@@ -91,6 +71,7 @@ $(document).ready(function() {
       .done(() => {
         $.get('/tweets')
           .done((data) => {
+            // Send only the newest item of the return array to be rendered
             renderTweets(data.slice(-1));
           });
       });
