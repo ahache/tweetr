@@ -24,7 +24,8 @@ $(document).ready(function() {
   function constructFooter(date) {
     let $footer = $('<footer>');
 
-    let $timeSpan = $('<span>').addClass('created_at').text(date);
+    // Using moment.js to generate time difference
+    let $timeSpan = $('<span>').addClass('created_at').text(moment(date).fromNow());
     let $flag = $('<img>').addClass('flag').attr('src', '../images/flag.png');
     let $retweet = $('<img>').addClass('retweet').attr('src', '../images/retweet.png');
     let $like = $('<img>').addClass('like').attr('src', '../images/like.png');
@@ -57,9 +58,7 @@ $(document).ready(function() {
       });
   };
 
-  // Compose button handler
-  // Should make .new-tweet section fade out and in on click ... toggle
-  // After fade in focus should be on textarea
+  // Compose button handler, slides tweet box up and down
   $('.compose-button').on('click', function() {
     const newTweet = $('.new-tweet');
     newTweet.slideToggle('slow');
@@ -72,18 +71,20 @@ $(document).ready(function() {
 
     // input validation
     let length = $(this).find('textarea').val().length;
-
-    // Refactor to display pop up prompt by form
     if (length === 0) {
-      alert("Enter something!!");
+      $('input').notify("Your tweet is empty!");
       return;
     }
     if (length > 140) {
-      alert("Too long! Cut it down..");
+      $('input').notify("Your tweet is too long!");
       return;
     }
 
     let input = $(this).serialize();
+
+    // Reset form after successful submit
+    $(this).find('textarea').val("");
+    $(this).find('.counter').text('140');
 
     // Send new tweet to server, get back all tweet data and prepend the new item
     $.post('/tweets', input)
