@@ -27,15 +27,24 @@ body {
   display: none;
 }
 
-#register-popup, #login-popup {width: 260px;background-color: #d9edf7;border: solid;border-radius: 2em;padding: 2em;}
+#register-popup, #login-popup {
+  width: 280px;
+  background-color: #d9edf7;
+  border: solid;
+  border-radius: 2em;
+  padding: 2em;
+}
+
+
 
 #register-popup h2, #login-popup h2 {
   text-align: center;
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 
 #register-popup label, #login-popup label {
   font-size: 1.2em;
+  font-weight: bold;
 }
 
 #register-popup input, #login-popup input {
@@ -44,10 +53,11 @@ body {
 }
 
 #login-button, #register-button {
-  width: 70px;
   height: 40px;
   font-size: 1.2em;
   font-weight: bold;
+  border-radius: 5px;
+  border-style: ridge;
 }
 
 .hidden {

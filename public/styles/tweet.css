@@ -1,7 +1,5 @@
 #tweet-container {
   margin: 0 2em;
-  /* border-style: ridge; */
-  /* border-radius: 5px; */
 }
 
 #tweet-container article {
@@ -9,7 +7,7 @@
   border-style: solid;
   border-width: thin;
   border-radius: 4px;
-  border-color: cyan;
+  border-color: #565454;
 }
 
 #tweet-container header {
@@ -36,7 +34,7 @@
   background-color: white;
   padding: 5px;
   border-radius: 3px;
-  word-break: break-word;
+  overflow-wrap: break-word;
   border-bottom: solid;
   border-bottom-color: #eee;
 }

@@ -1,13 +1,13 @@
 $(document).ready(function() {
   $('#login-popup').popup({
     color: '#eafbfd',
-    opacity: 0.95,
+    opacity: 0.9,
     transition: '0.6s'
   });
 
   $('#register-popup').popup({
     color: '#eafbfd',
-    opacity: 0.95,
+    opacity: 0.9,
     transition: '0.6s'
   });
 

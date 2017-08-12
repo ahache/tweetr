@@ -9,29 +9,33 @@
 }
 
 #nav-bar .header {
-  font-size: 2em;
+  font-size: 2.5em;
   float: left;
   height: 80px;
   padding-left: 10px;
   line-height: 80px;
+  color: #627880;
 }
 
 #nav-bar .logo {
-  height: 80px;
-  width: 80px;
+  height: 70px;
+  width: 70px;
+  margin: 5px;
   float: left;
 }
 
 #nav-bar button {
   float: right;
   height: 60px;
-  width: 100px;
+  width: 5em;
   margin: 10px;
   border: solid;
   border-radius: 25px;
-  border-color: #000000;
+  border-color: #565454;
   background-color: rgb(255, 255, 135);
   font-size: 1.4em;
+  font-weight: bold;
+  color: #565454;
 }
 
 #nav-bar button:hover {

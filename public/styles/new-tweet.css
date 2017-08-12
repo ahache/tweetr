@@ -7,10 +7,11 @@
   border-radius: 5px;
 }
 
-.new-tweet h2 {
+.new-tweet-head {
   margin-top: 0;
   margin-bottom: 15px;
   border-bottom: solid thin;
+  font-size: 2em;
 }
 
 .new-tweet textarea {

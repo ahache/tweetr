@@ -1,14 +1,20 @@
 $(document).ready(function() {
 
-  // HTML generator using template strings
+  // Tweet generator using template strings
   function createTweetElement(tweet) {
 
+    let handle = tweet.user.handle;
+    if (handle[0] !== "@") {
+      handle = `@${handle}`;
+    }
+
+    // moment.js used for tweet time display
     const $tweet = `
       <article>
         <header>
           <img class="user-avatar" src="${tweet.user.avatars.small}">
           <span class="user-name">${tweet.user.name}</span>
-          <span class="user-handle">${tweet.user.handle}</span>
+          <span class="user-handle">${handle}</span>
         </header>
         <div class="content">
           <span class="text">${tweet.content.text}</span>
@@ -32,14 +38,14 @@ $(document).ready(function() {
   }
 
   // Compose button handler, slides tweet box up and down
-  $('.compose-button').on('click', function() {
+  $('.compose-button').on('click', function(event) {
     const newTweet = $('.new-tweet');
-    newTweet.slideToggle('slow');
+    newTweet.slideToggle('fast');
     newTweet.find('textarea').focus();
   });
 
   // Tweet submit handler
-  $('.tweet-form').on('submit', function() {
+  $('.tweet-form').on('submit', function(event) {
     event.preventDefault();
 
     // input validation, using notify.js for bad input
@@ -65,26 +71,34 @@ $(document).ready(function() {
         $.get('/tweets')
           .done((data) => {
             // Send only the newest item of the return array to be rendered
-            renderTweets(data.slice(-1));
+            // get /tweets returns {tweets, logged-in boolean}
+            renderTweets(data.tweets.slice(-1));
           });
       });
   });
 
+  // Toggle nav bar button visibility
+  function toggleNavButtons() {
+    $('.compose-button').toggleClass('hidden');
+    $('.logout').toggleClass('hidden');
+    $('.login').toggleClass('hidden');
+    $('.register').toggleClass('hidden');
+  }
+
   // Logout handler
   $('.logout').on('click', function() {
-    // post to server to clear cookie
     $.post('/logout')
       .done(() => {
-        $('.compose-button').addClass('hidden');
-        $('.logout').addClass('hidden');
-        $('.new-tweet').slideToggle('slow'); //a asdfasdfasdfsd
-        $('.login').removeClass('hidden');
-        $('.register').removeClass('hidden');
+        toggleNavButtons();
+        // Slide up tweet box if displayed
+        if ($('.new-tweet').css('display') === 'block') {
+          $('.new-tweet').slideToggle('fast');
+        }
       });
   });
 
   // Login handler
-  $('#login-form').on('submit', function() {
+  $('#login-form').on('submit', function(event) {
     event.preventDefault();
 
     // Input validation
@@ -101,12 +115,10 @@ $(document).ready(function() {
 
     $.post('/login', input)
       .done((res) => {
-        // put notification on compose button after it appears
-        $('.login').addClass('hidden');
-        $('.register').addClass('hidden');
-        $('.new-tweet').removeClass('hidden');
-        $('.logout').removeClass('hidden');
-        $('.compose-button').removeClass('hidden');
+        toggleNavButtons();
+
+        $('.new-tweet').slideToggle('fast');
+
         $('.compose-button').notify(`Logged in as ${res.user}, @${res.handle}`, 'success');
 
         $('#login-form')[0].reset();
@@ -123,25 +135,22 @@ $(document).ready(function() {
   });
 
   // Registration input handler
-  $('#register-form').on('submit', function() {
+  $('#register-form').on('submit', function(event) {
     event.preventDefault();
 
-    let handleInput = $('#register-handle').val();
+    let userName = $('#register-username').val();
 
     // Input validation
-    if ($('#register-username').val() === "") {
+    if (userName === "") {
       $('#register-button').notify("Must Enter Username");
       return;
     }
-    if (handleInput === "") {
+    if ($('#register-handle').val() === "") {
       $('#register-button').notify("Must Enter Handle");
       return;
     }
-    if (handleInput[0] !== "@") {
-      handleInput = "@" + handleInput;
-     }
 
-
+    // Password validation
     const password = $('#register-password').val();
     if(!password.match(/^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,})$/)) {
       $('#register-password').notify("Password must be 6 characters minimum, 1 upper, 1 lower and 1 number");
@@ -152,29 +161,31 @@ $(document).ready(function() {
 
     $.post('/register', input)
       .done(() => {
-        $('.login').addClass('hidden');
-        $('.register').addClass('hidden');
-        $('.new-tweet').removeClass('hidden');
-        $('.compose-button').removeClass('hidden');
-        $('.logout').removeClass('hidden');
+        toggleNavButtons();
+
+        $('.new-tweet').slideToggle();
 
         $('#register-popup').popup('hide');
 
-        $('.new-tweet-head').notify("Successfully Registered, Start Tweeting!!", "success");
+        $('.new-tweet-head').notify(`Welcome ${userName}, Start Tweeting!!`, "success");
         $('#register-form')[0].reset();
       })
       .fail((err) => {
-        // customize some error codes
         $('#register-button').notify("Username is already registered");
       });
-
   });
 
-  // Initial load when user first accesses app
+  // Page load / Refresh
   function loadTweets() {
-    $.ajax('/tweets')
+
+    $.get('/tweets')
       .done((data) => {
-        renderTweets(data);
+        // data contains tweets and logged boolean
+        // On refresh, if user is still logged in, display proper buttons
+        if (data.logged) {
+          toggleNavButtons();
+        }
+        renderTweets(data.tweets);
       });
   }
 

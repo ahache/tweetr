@@ -12,7 +12,12 @@ module.exports = function(DataHelpers) {
       if (err) {
         res.status(500).json({ error: err.message });
       } else {
-        res.json(tweets);
+        // Send back logged in status as well
+        if (req.session.user) {
+          res.json({tweets:tweets,logged:true});
+        } else {
+          res.json({tweets:tweets,logged:false});
+        }
       }
     });
   });
@@ -23,14 +28,10 @@ module.exports = function(DataHelpers) {
       return;
     }
 
-    console.log(req.session.user);
-
     const user = req.body.user ? req.body.user : userHelper.generateRandomUser();
 
     user.name = req.session.user;
     user.handle = req.session.handle;
-
-    console.log(user);
 
     const tweet = {
       user: user,
