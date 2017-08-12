@@ -27,12 +27,21 @@
   height: 60px;
   width: 100px;
   margin: 10px;
-  border-radius: 5px;
-  border-style: double;
-  border-color: steelblue;
+  border: solid;
+  border-radius: 25px;
+  border-color: #000000;
   background-color: rgb(255, 255, 135);
+  font-size: 1.4em;
 }
 
 #nav-bar button:hover {
   background-color: rgb(255, 241, 55);
+}
+
+.compose-button, .login {
+}
+
+#nav-bar .user {
+  float: right;
+  background-color: lightyellow;
 }

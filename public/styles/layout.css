@@ -1,8 +1,3 @@
-/*
- * http://www.paulirish.com/2012/box-sizing-border-box-ftw/
- * https://css-tricks.com/international-box-sizing-awareness-day/
- * Do not modify these two selectors, please
- */
 html {
   box-sizing: border-box;
 }
@@ -21,13 +16,40 @@ body {
   font-family: 'Roboto Condensed', sans-serif;
 }
 
-/*
- * Additional CSS can be defined below or in other CSS files, as per instructions
- */
+.container {
+  width: 450px;
+  margin: auto;
+  background-color: #eafbfd;
+  padding-top: 120px;
+}
 
- .container {
-   width: 450px;
-   margin: auto;
-   background-color: #eafbfd;
-   padding-top: 120px;
- }
+#login-popup, #register-popup {
+  display: none;
+}
+
+#register-popup, #login-popup {width: 260px;background-color: #d9edf7;border: solid;border-radius: 2em;padding: 2em;}
+
+#register-popup h2, #login-popup h2 {
+  text-align: center;
+  text-decoration: underline;
+}
+
+#register-popup label, #login-popup label {
+  font-size: 1.2em;
+}
+
+#register-popup input, #login-popup input {
+  float:right;
+  margin-bottom: 0.5em;
+}
+
+#login-button, #register-button {
+  width: 70px;
+  height: 40px;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.hidden {
+  display:none;
+}
