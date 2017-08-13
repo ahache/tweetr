@@ -1,16 +1,17 @@
 # Tweeter Project
 
-Tweeter is a simple, single-page Twitter clone.
+Tweeter is a single-page Twitter clone
 
-Using Ajax and jQuery, tweets are dynamically stored and rendered. An Express server connected to MongoDB controls the back end.
+Site was designed using basic CSS, HTML and Javascript. 
+Popup is from http://dev.vast.com/jquery-popup-overlay/, notifications from Notify.js 
 
-Tweets input through the user interface, however the users and user handles are randomly generated using the chance package.
+Express server, using MongoDB
 
 ## Final Product
 
-!["Screenshot of Tweeter with the tweet box"](https://github.com/ahache/tweetr/blob/master/docs/tweeter-with-tweetbox.png?raw=true)
-!["Screenshot of Tweeter without tweet box"](https://github.com/ahache/tweetr/blob/master/docs/tweeter-without-tweetbox.png?raw=true)
-!["Screenshot demonstrating the character input counter"](https://github.com/ahache/tweetr/blob/master/docs/character-counter.png?raw=true)
+!["Main Page"](https://github.com/ahache/tweetr/blob/master/docs/MainPage.png?raw=true)
+!["Tweet Box"](https://github.com/ahache/tweetr/blob/master/docs/TweetBoxAndNotice.png?raw=true)
+!["Login/Registration Overlay"](https://github.com/ahache/tweetr/blob/master/docs/TweeterLogin.png?raw=true)
 
 ## Getting Started
 
@@ -21,7 +22,10 @@ Tweets input through the user interface, however the users and user handles are 
 ## Dependencies
 
 - Express
-- Node 5.10.x or above
+- Node
 - body-parser
 - chance
 - mongodb
+- bcrypt
+- cookie-session
+- md5
