@@ -3,8 +3,9 @@
   margin: 0 2em;
   margin-bottom: 20px;
   padding: 10px;
-  border-style: groove;
-  border-radius: 5px;
+  border-style: solid;
+  border-width: 0.1em;
+  border-radius: 10px;
 }
 
 .new-tweet-head {
@@ -19,6 +20,7 @@
   padding: 5px;
   resize: none;
   height: 130px;
+  border-style: none;
 }
 
 .new-tweet .counter {

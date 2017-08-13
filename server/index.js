@@ -66,7 +66,6 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
       if (result.length === 0) {
         res.status(400).send();
       } else {
-        // if (result[0].password === req.body.password) {
         if (bcrypt.compareSync(req.body.password, result[0].password)) {
           req.session.user = result[0].user;
           req.session.handle = result[0].handle;

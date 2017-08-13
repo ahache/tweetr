@@ -9,18 +9,22 @@ html {
  * Global layout stuff
  */
 
+:focus {
+  outline: 0;
+}
+
 body {
   margin: 0;
   color: #244751;
-  background-color: #eafbfd;
   font-family: 'Roboto Condensed', sans-serif;
+  background-color: #fdfd72;
 }
 
 .container {
   width: 450px;
   margin: auto;
-  background-color: #eafbfd;
   padding-top: 120px;
+  background-color: #fdfd72;
 }
 
 #login-popup, #register-popup {
